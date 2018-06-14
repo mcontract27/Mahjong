@@ -19,3 +19,18 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#hand {
+  display: flex;
+  height: 100px;
+}
+
+.playertile {
+  max-height: 75%;
+  margin: 0 -1%;
+}
+
+.playertile:hover {
+  max-height: 100%;
+}
+
