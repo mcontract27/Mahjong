@@ -1,6 +1,7 @@
 // const wind = {east: 1, south: 2, west: 3, north:4}
 // const dragon = {red: 1, white: 2, green: 3}
 import {tileSort} from '../classes/deck'
+import {getShanten} from '../classes/shanten'
 import React from 'react'
 import socket from '../socket'
 
@@ -15,10 +16,13 @@ export default class Hand extends React.Component {
     })
 
     socket.on('draw', tile => {
-      this.setState(prevState => {
-        prevState.tiles.push(tile)
-        return {prevState}
-      })
+      this.setState(
+        prevState => {
+          prevState.tiles.push(tile)
+          return {prevState}
+        },
+        () => getShanten(this.state.tiles)
+      )
     })
   }
 
@@ -28,6 +32,8 @@ export default class Hand extends React.Component {
 
   drawTile = () => {
     socket.emit('draw')
+    console.log(this.state.tiles)
+    getShanten(this.state.tiles)
   }
 
   discard = index => {
@@ -62,11 +68,14 @@ export default class Hand extends React.Component {
             />
           ))}
         </div>
-        <button type="submit" onClick={() => {
+        <button
+          type="submit"
+          onClick={() => {
             socket.emit('newgame')
             this.newHand()
             this.drawTile()
-        }}>
+          }}
+        >
           New Hand
         </button>
         <button type="submit" onClick={this.drawTile}>
