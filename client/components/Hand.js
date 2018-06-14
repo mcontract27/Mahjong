@@ -10,19 +10,24 @@ export default class Hand extends React.Component {
     this.state = {
       tiles: []
     }
+    socket.on('newhand', tiles => {
+      this.setState({tiles: tileSort(tiles)})
+    })
+
+    socket.on('draw', tile => {
+      this.setState(prevState => {
+        prevState.tiles.push(tile)
+        return {prevState}
+      })
+    })
   }
 
   newHand = () => {
-    this.setState({tiles: tileSort(this.props.deck.draw(13))})
+    socket.emit('newhand')
   }
 
   drawTile = () => {
-    const tile = this.props.deck.draw()[0]
-    this.setState(prevState => {
-      prevState.tiles.push(tile)
-      return {prevState}
-    })
-    console.log(this.state)
+    socket.emit('draw')
   }
 
   discard = index => {
@@ -32,7 +37,6 @@ export default class Hand extends React.Component {
       tileSort(prevState.tiles)
       return {prevState}
     })
-    console.log(tile)
     socket.emit('discard', tile)
     return tile
   }
@@ -58,6 +62,13 @@ export default class Hand extends React.Component {
             />
           ))}
         </div>
+        <button type="submit" onClick={() => {
+            socket.emit('newgame')
+            this.newHand()
+            this.drawTile()
+        }}>
+          New Hand
+        </button>
         <button type="submit" onClick={this.drawTile}>
           Draw
         </button>

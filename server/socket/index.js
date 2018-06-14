@@ -11,13 +11,19 @@ module.exports = io => {
       console.log(`Connection ${socket.id} has left the building`)
     })
 
-    socket.on('draw', count => {
-      let tiles = rooms[socket.id].deck.draw(count)
-      socket.emit('draw', tiles)
+    socket.on('newhand', () => {
+      let tiles = rooms[socket.id].deck.draw(13)
+      socket.emit('newhand', tiles)
+    })
+
+    socket.on('draw', () => {
+      let tile = rooms[socket.id].deck.draw(1)[0]
+      // console.log(`${socket.id} drew the ${tile.value} ${tile.suit}`)
+      socket.emit('draw', tile)
     })
 
     socket.on('discard', tile => {
-      console.log(`${socket.id} discarded the ${tile.value} ${tile.suit}`)
+      // console.log(`${socket.id} discarded the ${tile.value} ${tile.suit}`)
     })
 
     socket.on('newgame', () => {
