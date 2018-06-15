@@ -1,5 +1,6 @@
 import React from 'react'
 
+//{`playertile ${props.position ? `tile-${props.position}` : null}`}
 const Tile = props => {
   const tile = props.tile
   return (

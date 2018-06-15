@@ -36,7 +36,7 @@ export default class Table extends React.Component {
   render() {
     const player = this.state.player
     return (
-      <div>
+      <div id="table">
         <EnemyHand position="top" />
         <Discards
           position="top"

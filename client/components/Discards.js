@@ -13,8 +13,8 @@ export default class Discards extends React.Component {
   render() {
     const tiles = this.props.discards ? this.props.discards : []
     return (
-      <div className={`discards-${this.props.position}`}>
-        {tiles.map(tile => <Tile tile={tile} />)}
+      <div id={`discards-${this.props.position}`}>
+        {tiles.map(tile => <Tile position={this.props.position} tile={tile} />)}
       </div>
     )
   }

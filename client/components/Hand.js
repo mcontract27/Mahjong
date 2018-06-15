@@ -57,7 +57,7 @@ export default class Hand extends React.Component {
   render() {
     const hand = this.state.tiles
     return (
-      <div>
+      <div id="hand-bottom">
         <div id="hand">
           {hand.map((tile, ind) => (
             <Tile

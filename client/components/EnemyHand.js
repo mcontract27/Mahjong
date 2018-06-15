@@ -5,7 +5,7 @@ const EnemyHand = props => {
   return (
     <div id={`hand-${props.position}`}>
       {[...Array(handsize)].map((e, index) => (
-        <img className="playertile" key={index} src={'/images/facedown.png'} />
+        <img className={`tile-${props.position}`} key={index} src={'/images/facedown.png'} />
       ))}
     </div>
   )
