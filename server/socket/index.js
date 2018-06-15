@@ -11,23 +11,35 @@ module.exports = io => {
       console.log(`Connection ${socket.id} has left the building`)
     })
 
-    socket.on('newhand', () => {
-      let tiles = rooms[socket.id].deck.draw(13)
+    socket.on('joinroom', roomName => {
+      socket.join(roomName)
+      if (!rooms[roomName]) rooms[roomName] = {deck: new deck(true), players: []}
+      const players = rooms[roomName].players
+      players.push({id: socket.id, player: players.length + 1})
+      socket.emit('joinedroom', roomName, players.length)
+      if (players.length === 4) io.in(roomName).emit('gameready')
+    })
+
+    socket.on('newhand', roomName => {
+      let tiles = rooms[roomName].deck.draw(13)
       socket.emit('newhand', tiles)
     })
 
-    socket.on('draw', () => {
-      let tile = rooms[socket.id].deck.draw(1)[0]
+    socket.on('draw', roomName => {
+      let tile = rooms[roomName].deck.draw(1)[0]
       // console.log(`${socket.id} drew the ${tile.value} ${tile.suit}`)
       socket.emit('draw', tile)
     })
 
-    socket.on('discard', tile => {
-      // console.log(`${socket.id} discarded the ${tile.value} ${tile.suit}`)
+    socket.on('discard', (tile, roomName) => {
+      console.log(`${socket.id} discarded the ${tile.value} ${tile.suit}`)
+      const {player} = rooms[roomName].players.filter(client => client.id === socket.id)[0]
+      io.in(roomName).emit('discard', tile, player)
     })
 
-    socket.on('newgame', () => {
-      rooms[socket.id].deck.newDeck()
+    socket.on('newgame', roomName => {
+      rooms[roomName].deck.newDeck()
+      io.in(roomName).emit('gameready')
     })
   })
 }

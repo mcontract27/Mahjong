@@ -4,6 +4,7 @@ import {tileSort} from '../classes/deck'
 import {getShanten} from '../classes/shanten'
 import React from 'react'
 import socket from '../socket'
+import Tile from './Tile'
 
 export default class Hand extends React.Component {
   constructor() {
@@ -13,6 +14,10 @@ export default class Hand extends React.Component {
     }
     socket.on('newhand', tiles => {
       this.setState({tiles: tileSort(tiles)})
+    })
+
+    socket.on('gameready', () => {
+      socket.emit('newhand', this.props.room)
     })
 
     socket.on('draw', tile => {
@@ -26,14 +31,12 @@ export default class Hand extends React.Component {
     })
   }
 
-  newHand = () => {
-    socket.emit('newhand')
-  }
+  //   newHand = () => {
+  //     socket.emit('newhand')
+  //   }
 
   drawTile = () => {
-    socket.emit('draw')
-    console.log(this.state.tiles)
-    getShanten(this.state.tiles)
+    socket.emit('draw', this.props.room)
   }
 
   discard = index => {
@@ -43,7 +46,7 @@ export default class Hand extends React.Component {
       tileSort(prevState.tiles)
       return {prevState}
     })
-    socket.emit('discard', tile)
+    socket.emit('discard', tile, this.props.room)
     return tile
   }
 
@@ -57,27 +60,27 @@ export default class Hand extends React.Component {
       <div>
         <div id="hand">
           {hand.map((tile, ind) => (
-            <img
-              className="playertile"
+            <Tile
               key={ind}
+              index={ind}
               onClick={() => {
                 this.discard(ind)
                 this.drawTile()
               }}
-              src={tile.imgUrl}
+              tile={tile}
             />
           ))}
         </div>
-        <button
+        {/* <button
           type="submit"
           onClick={() => {
             socket.emit('newgame')
-            this.newHand()
+            // this.newHand()
             this.drawTile()
           }}
         >
           New Hand
-        </button>
+        </button> */}
         <button type="submit" onClick={this.drawTile}>
           Draw
         </button>
