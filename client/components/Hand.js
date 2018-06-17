@@ -58,7 +58,7 @@ export default class Hand extends React.Component {
     const hand = this.state.tiles
     return (
       <div id="hand-bottom">
-        <div id="hand">
+        {/* <div id="hand"> */}
           {hand.map((tile, ind) => (
             <Tile
               key={ind}
@@ -70,7 +70,7 @@ export default class Hand extends React.Component {
               tile={tile}
             />
           ))}
-        </div>
+        {/* </div> */}
         {/* <button
           type="submit"
           onClick={() => {
@@ -81,9 +81,9 @@ export default class Hand extends React.Component {
         >
           New Hand
         </button> */}
-        <button type="submit" onClick={this.drawTile}>
+        {/* <button type="submit" onClick={this.drawTile}>
           Draw
-        </button>
+        </button> */}
       </div>
     )
   }
