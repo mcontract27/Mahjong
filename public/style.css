@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: rgb(178, 255, 197);
 }
 
 a {
@@ -27,7 +28,6 @@ form div {
 
 .playertile {
   max-height: 100%;
-  margin: 0 -1%;
 }
 
 .playertile:hover {
@@ -48,33 +48,41 @@ form div {
 
 #hand-left {
   grid-area: 2 / 1 / 5 / 2;
+  transform: rotate(90deg);
+  transform-origin: top left;
   display:flex;
-  flex-direction: column-reverse;
-  justify-content: center;
+  position: relative;
+  left: 5.6vw;
+  flex-direction: reverse;
 }
 
 #discards-left {
   grid-area: 3 / 2 / 4 / 3;
   transform: rotate(90deg);
   display:flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  /* align-content: flex-start; */
 }
 
 #hand-right {
   grid-area: 2 / 5 / 5 / 6;
+  transform: rotate(90deg);
+  transform-origin: top left;
+  position: relative;
+  left: 5.6vw;
   display:flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 100%;
+  flex-direction: reverse;
+  /* justify-content: center; */
 }
 
 #discards-right {
   grid-area: 3 / 4 / 4 / 5;
   transform: rotate(270deg);
   display:flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  flex-direction: column;
+  /* flex-wrap: wrap;
+  align-content: flex-start; */
 }
 
 #hand-top {
@@ -87,8 +95,9 @@ form div {
   grid-area: 2 / 3 / 3 / 4;
   transform: rotate(180deg);
   display:flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  flex-direction: column;
+  /* flex-wrap: wrap;
+  align-content: flex-start; */
 }
 
 #hand-bottom {
@@ -101,45 +110,48 @@ form div {
 #discards-bottom {
   grid-area: 4 / 3 / 5 / 4;
   display:flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  /* align-content: flex-start; */
 }
 
 #discards-bottom img {
-  max-height: 33%;
-  max-width: 17%
+  max-height: 100%;
+  max-width: 16%
 }
 
 #discards-top img {
-  max-height: 33%;
-  max-width: 17%
+  max-height: 100%;
+  max-width: 16%
 }
 
 #discards-left img {
-  max-height: 16%;
+  max-height: 100%;
+  max-width: 16%
 }
 
 #discards-right img {
-  max-height: 16%;
+  max-height: 100%;
+  max-width: 16%
 }
 
 .tile-left {
-  transform: rotate(90deg);
   max-width: 100%;
-  margin: -16% 0;
   max-height:10%;
 }
 
 .tile-top {
   transform: rotate(180deg);
   max-height: 100%;
-  margin: 0 -1%;
 }
 
 .tile-right {
-  transform: rotate(270deg);
   max-width: 100%;
-  margin: -16% 0;
   max-height:10%;
+}
+
+.discard-row {
+  display: flex;
+  max-height: 33%;
 }
 

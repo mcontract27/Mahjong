@@ -2,6 +2,7 @@
 // const dragon = {red: 1, white: 2, green: 3}
 import {tileSort} from '../classes/deck'
 import {getShanten} from '../classes/shanten'
+import {checkCalls} from '../classes/calls'
 import React from 'react'
 import socket from '../socket'
 import Tile from './Tile'
@@ -12,12 +13,9 @@ export default class Hand extends React.Component {
     this.state = {
       tiles: []
     }
+
     socket.on('newhand', tiles => {
       this.setState({tiles: tileSort(tiles)})
-    })
-
-    socket.on('gameready', () => {
-      socket.emit('newhand', this.props.room)
     })
 
     socket.on('draw', tile => {
@@ -29,11 +27,23 @@ export default class Hand extends React.Component {
         () => getShanten(this.state.tiles)
       )
     })
-  }
 
-  //   newHand = () => {
-  //     socket.emit('newhand')
-  //   }
+    socket.on('discard', tile => {
+        const calls = checkCalls(tile, this.state.tiles, this.props.active % 4 === this.props.player - 1) 
+        const filtered = Object.keys(calls).filter(call => calls[call])
+        if (filtered.length){
+            console.log('can make call', calls)
+            // socket.emit('can make call')
+            socket.emit('no call', this.props.room)
+        } else {
+            socket.emit('no call', this.props.room)
+        }
+    })
+
+    socket.on('change turn', () => {
+        if (this.props.active === this.props.player) this.drawTile()
+    })
+  }
 
   drawTile = () => {
     socket.emit('draw', this.props.room)
@@ -50,41 +60,44 @@ export default class Hand extends React.Component {
     return tile
   }
 
-  componentDidMount = () => {
-    if (this.props.deck) this.newHand()
-  }
-
   render() {
     const hand = this.state.tiles
+    const yourTurn = this.props.active === this.props.player
     return (
       <div id="hand-bottom">
         {/* <div id="hand"> */}
-          {hand.map((tile, ind) => (
-            <Tile
-              key={ind}
-              index={ind}
-              onClick={() => {
-                this.discard(ind)
-                this.drawTile()
-              }}
-              tile={tile}
-            />
-          ))}
-        {/* </div> */}
-        {/* <button
-          type="submit"
-          onClick={() => {
-            socket.emit('newgame')
-            // this.newHand()
-            this.drawTile()
-          }}
-        >
-          New Hand
-        </button> */}
-        {/* <button type="submit" onClick={this.drawTile}>
-          Draw
-        </button> */}
+        {hand.map((tile, ind) => (
+          <Tile
+            key={ind}
+            index={ind}
+            onClick={() => {
+              if (yourTurn) this.discard(ind)
+            }}
+            tile={tile}
+          />
+        ))}
       </div>
     )
   }
+}
+
+{
+  /* </div> */
+}
+{
+  /* <button
+  type="submit"
+  onClick={() => {
+    socket.emit('newgame')
+    // this.newHand()
+    this.drawTile()
+  }}
+>
+  New Hand
+</button> */
+}
+{
+  /* <button type="submit" onClick={this.drawTile}>
+  Draw
+</button> */
 }
