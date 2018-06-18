@@ -38,6 +38,7 @@ class Sidebar extends React.Component {
 
   render() {
     return (
+        <div id="sidebar">
       <SideNav className="fixed" trigger={<Button>Rooms</Button>}>
         <SideNavItem>
           <Row>
@@ -63,6 +64,7 @@ class Sidebar extends React.Component {
           } players`}</SideNavItem>
         ))}
       </SideNav>
+      </div>
     )
   }
 }

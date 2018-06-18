@@ -27,7 +27,7 @@ form div {
 }
 
 .flex {
-  display:flex;
+  display: flex;
 }
 
 .playertile {
@@ -43,18 +43,18 @@ form div {
   width: 70vw;
   margin: 10vh auto 0;
   display: grid;
-  grid-gap:5px;
+  grid-gap: 5px;
   /* grid-template-columns: 100px 300px 450px 300px 100px;
   grid-template-rows: 75px 225px 335px 225px 75px; */
   grid-template-columns: 8% 24% 36% 24% 8%;
-  grid-template-rows: 8% 28% 28% 28% 8%;
+  grid-template-rows: 8% 28% 28% 28% 6% 8%;
 }
 
 #hand-left {
   grid-area: 2 / 1 / 5 / 2;
   transform: rotate(90deg);
   transform-origin: top left;
-  display:flex;
+  display: flex;
   position: relative;
   left: 5.6vw;
   flex-direction: reverse;
@@ -63,7 +63,7 @@ form div {
 #discards-left {
   grid-area: 3 / 2 / 4 / 3;
   transform: rotate(90deg);
-  display:flex;
+  display: flex;
   flex-direction: column;
   /* flex-wrap: wrap; */
   /* align-content: flex-start; */
@@ -75,7 +75,7 @@ form div {
   transform-origin: top left;
   position: relative;
   left: 5.6vw;
-  display:flex;
+  display: flex;
   flex-direction: reverse;
   /* justify-content: center; */
 }
@@ -83,7 +83,7 @@ form div {
 #discards-right {
   grid-area: 3 / 4 / 4 / 5;
   transform: rotate(270deg);
-  display:flex;
+  display: flex;
   flex-direction: column;
   /* flex-wrap: wrap;
   align-content: flex-start; */
@@ -91,57 +91,63 @@ form div {
 
 #hand-top {
   grid-area: 1 / 2 / 2 / 5;
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
 #discards-top {
   grid-area: 2 / 3 / 3 / 4;
   transform: rotate(180deg);
-  display:flex;
+  display: flex;
   flex-direction: column;
   /* flex-wrap: wrap;
   align-content: flex-start; */
 }
 
 #hand-bottom {
-  grid-area: 5 / 2 / 6 / 5;
-  display:flex;
+  grid-area: 6 / 2 / 7 / 5;
+  display: flex;
   max-height: 100%;
   justify-content: center;
 }
 
 #discards-bottom {
   grid-area: 4 / 3 / 5 / 4;
-  display:flex;
+  display: flex;
   flex-direction: column;
   /* flex-wrap: wrap; */
   /* align-content: flex-start; */
 }
 
+#call-options {
+  grid-area: 5/2/6/5;
+  display: flex;
+  justify-content: center;
+}
+
 #discards-bottom img {
   max-height: 100%;
-  max-width: 16%
+  max-width: 16%;
 }
 
 #discards-top img {
   max-height: 100%;
-  max-width: 16%
+  max-width: 16%;
 }
 
 #discards-left img {
   max-height: 100%;
-  max-width: 16%
+  max-width: 16%;
 }
 
 #discards-right img {
   max-height: 100%;
-  max-width: 16%
+  max-width: 16%;
 }
 
 .tile-left {
   max-width: 100%;
-  max-height:10%;
+  max-height: 10%;
 }
 
 .tile-top {
@@ -151,7 +157,7 @@ form div {
 
 .tile-right {
   max-width: 100%;
-  max-height:10%;
+  max-height: 10%;
 }
 
 .discard-row {
@@ -160,6 +166,7 @@ form div {
   height: 33%;
 }
 
-SideNav {
-  background-color: white;
+#sidebar {
+  position:absolute;
+  z-index: 1;
 }

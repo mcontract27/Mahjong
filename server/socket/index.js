@@ -17,7 +17,8 @@ const newRound = (roomName, io) => {
     3: {discards: [], calls: [], handsize: 13},
     4: {discards: [], calls: [], handsize: 13},
     wall: [],
-    activePlayer: 0
+    activePlayer: 0,
+    activeDiscard: {}
   }
   room.deck.newDeck()
   room.gamestate.turn++
@@ -93,6 +94,7 @@ module.exports = io => {
       )[0]
       rooms[roomName].boardstate[player].discards.push(tile)
       rooms[roomName].boardstate[player].handsize--
+      rooms[roomName].boardstate.activeDiscard = tile
       rooms[roomName].ready = 0
       io.in(roomName).emit('update_boardstate', rooms[roomName].boardstate)
       io.in(roomName).emit('discard', tile, player)
@@ -106,6 +108,17 @@ module.exports = io => {
         io.in(roomName).emit('update_boardstate', rooms[roomName].boardstate)
         io.in(roomName).emit('change turn')
       }
+    })
+
+    socket.on('call', (roomName, call) => {
+      const room = rooms[roomName]
+      const {player} = room.players.filter(
+        client => client.id === socket.id
+      )[0]
+      room.boardstate[player].calls.push([...call, room.boardstate.activeDiscard])
+      room.boardstate[player].handsize -= call.length
+      room.boardstate.activePlayer = player
+      io.in(roomName).emit('update_boardstate', room.boardstate)
     })
 
     socket.on('newgame', roomName => {

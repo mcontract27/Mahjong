@@ -8,10 +8,11 @@ import socket from '../socket'
 import Tile from './Tile'
 
 export default class Hand extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      tiles: []
+      tiles: [],
+      calls: {}
     }
 
     socket.on('newhand', tiles => {
@@ -29,19 +30,22 @@ export default class Hand extends React.Component {
     })
 
     socket.on('discard', tile => {
-        const calls = checkCalls(tile, this.state.tiles, this.props.active % 4 === this.props.player - 1) 
-        const filtered = Object.keys(calls).filter(call => calls[call])
-        if (filtered.length){
-            console.log('can make call', calls)
-            // socket.emit('can make call')
-            socket.emit('no call', this.props.room)
-        } else {
-            socket.emit('no call', this.props.room)
-        }
+      const calls = checkCalls(
+        tile,
+        this.state.tiles,
+        this.props.active % 4 === this.props.player - 1
+      )
+      const filtered = Object.keys(calls).filter(call => calls[call])
+      if (filtered.length) {
+        console.log('can make call', calls)
+        props.updateCalls(calls)
+      } else {
+        socket.emit('no call', this.props.room)
+      }
     })
 
     socket.on('change turn', () => {
-        if (this.props.active === this.props.player) this.drawTile()
+      if (this.props.active === this.props.player) this.drawTile()
     })
   }
 
@@ -81,23 +85,6 @@ export default class Hand extends React.Component {
   }
 }
 
-{
-  /* </div> */
-}
-{
-  /* <button
-  type="submit"
-  onClick={() => {
-    socket.emit('newgame')
-    // this.newHand()
-    this.drawTile()
-  }}
->
-  New Hand
-</button> */
-}
-{
-  /* <button type="submit" onClick={this.drawTile}>
-  Draw
-</button> */
-}
+// <div>
+//   
+// </div>
