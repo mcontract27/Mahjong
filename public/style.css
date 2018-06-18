@@ -26,6 +26,10 @@ form div {
   height: 100px;
 }
 
+.flex {
+  display:flex;
+}
+
 .playertile {
   max-height: 100%;
 }
@@ -152,6 +156,10 @@ form div {
 
 .discard-row {
   display: flex;
-  max-height: 33%;
+  align-items: center;
+  height: 33%;
 }
 
+SideNav {
+  background-color: white;
+}

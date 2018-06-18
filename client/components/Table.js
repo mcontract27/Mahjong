@@ -51,9 +51,9 @@ export default class Table extends React.Component {
     })
   }
 
-  componentDidMount() {
-    socket.emit('joinroom', 'Fullstack')
-  }
+//   componentDidMount() {
+//     socket.emit('joinroom', 'Fullstack')
+//   }
 
   render() {
     const player = this.state.player

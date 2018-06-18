@@ -38,8 +38,14 @@ module.exports = io => {
       console.log(`Connection ${socket.id} has left the building`)
     })
 
+    socket.on('get available rooms', () => {
+      let openRooms = Object.keys(rooms)
+      openRooms = openRooms.filter(room => rooms[room].players.length < 4)
+      openRooms = openRooms.map(room => [room, rooms[room].players.length])
+      socket.emit('open rooms', openRooms)
+    })
+
     socket.on('joinroom', roomName => {
-      socket.join(roomName)
       if (!rooms[roomName])
         rooms[roomName] = {
           deck: new deck(true),
@@ -54,9 +60,12 @@ module.exports = io => {
           ready: 0
         }
       const players = rooms[roomName].players
-      players.push({id: socket.id, player: players.length + 1})
-      socket.emit('joinedroom', roomName, players.length)
-      if (players.length === 4) newRound(roomName, io)
+      if (players.length < 4) {
+        players.push({id: socket.id, player: players.length + 1})
+        socket.join(roomName)
+        socket.emit('joinedroom', roomName, players.length)
+        if (players.length === 4) newRound(roomName, io)
+      }
     })
 
     socket.on('newhand', roomName => {

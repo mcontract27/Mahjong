@@ -1,13 +1,15 @@
 import React from 'react'
 
-import {Navbar} from './components'
+import Sidebar from './components/Sidebar'
 import Routes from './routes'
 
 const App = () => {
   return (
     <div>
-      {/* <Navbar /> */}
-      <Routes />
+      <div className="flex">
+        <Sidebar />
+        <Routes />
+      </div>
     </div>
   )
 }
