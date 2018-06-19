@@ -90,7 +90,7 @@ const removeThrees = (handHash, threes = 0) => {
   return shantenMin
 }
 
-const chitoitsuCheck = handHash => {
+const chitoiitsuCheck = handHash => {
   const values = Object.values(handHash)
   let shanten = 7
   shanten -= values.filter(value => value >= 2).length
@@ -135,7 +135,7 @@ export const getShanten = hand => {
     removeTiles(handCopy, [tile.split(',')])
     shantens[tile] = Math.min(
       removeThrees(handCopy),
-      chitoitsuCheck(handCopy),
+      chitoiitsuCheck(handCopy),
       kokushiCheck(handCopy)
     )
   })
