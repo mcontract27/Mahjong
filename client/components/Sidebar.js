@@ -45,14 +45,6 @@ class Sidebar extends React.Component {
             <Input s={12} label="Room" validate onChange={this.handleChange} />
           </Row>
           <Button onClick={this.createRoom}>Create Room</Button>
-          {/* <form className="col s12" onSubmit={this.joinRoom}>
-            <div className="row">
-              <div className="input-field col s12">
-                <input id="roomName" type="text" className="validate" />
-                <label htmlFor="roomName">Create a new room!</label>
-              </div>
-            </div>
-          </form> */}
         </SideNavItem>
         <SideNavItem divider />
         <SideNavItem>

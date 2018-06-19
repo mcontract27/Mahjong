@@ -3,12 +3,6 @@ import socket from '../socket'
 import Tile from './Tile'
 
 export default class Discards extends React.Component {
-  // constructor(){
-  //     super()
-  //     this.state = {
-  //         tiles: []
-  //     }
-  // }
 
   render() {
     const tiles = this.props.discards ? this.props.discards : []

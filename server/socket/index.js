@@ -1,13 +1,6 @@
 const deck = require('../classes/deck')
 
 let rooms = {}
-// const freshBoardState = {
-//   1: {discards: [], calls: []},
-//   2: {discards: [], calls: []},
-//   3: {discards: [], calls: []},
-//   4: {discards: [], calls: []},
-//   wall: []
-// }
 
 const newRound = (roomName, io) => {
   const room = rooms[roomName]
