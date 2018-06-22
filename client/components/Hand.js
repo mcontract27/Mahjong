@@ -25,7 +25,10 @@ export default class Hand extends React.Component {
           prevState.tiles.push(tile)
           return {prevState}
         },
-        () => getShanten(this.state.tiles)
+        () => {
+          const shantens = getShanten(this.state.tiles)
+          console.log(shantens)
+        }
       )
     })
 
@@ -69,7 +72,6 @@ export default class Hand extends React.Component {
     const yourTurn = this.props.active === this.props.player
     return (
       <div id="hand-bottom">
-        {/* <div id="hand"> */}
         {hand.map((tile, ind) => (
           <Tile
             key={ind}

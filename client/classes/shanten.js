@@ -139,5 +139,5 @@ export const getShanten = hand => {
       kokushiCheck(handCopy)
     )
   })
-  console.log(shantens)
+  return shantens
 }

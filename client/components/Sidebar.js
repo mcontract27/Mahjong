@@ -7,7 +7,6 @@ class Sidebar extends React.Component {
     super()
     this.state = {
       rooms: [],
-      current: [],
       newRoom: ''
     }
 
@@ -24,7 +23,7 @@ class Sidebar extends React.Component {
     socket.emit('get available rooms')
   }
 
-  createRoom = event => {
+  createRoom = () => {
     socket.emit('joinroom', this.state.newRoom)
   }
 
